@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% block title %}Gilberto Júnior — Dev Python & Django{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="container position-relative">
+    <div class="row align-items-center gy-5">
+      <div class="col-lg-7">
+        <div class="hero-tag"><i class="bi bi-terminal me-1"></i> Python & Django Developer</div>
+        <h1>
+          Olá, sou<br>
+          <span class="accent">Gilberto</span><br>
+          Júnior
+        </h1>
+        {% if perfil %}
+        <p class="hero-sub">{{ perfil.bio_curta }}</p>
+        {% else %}
+        <p class="hero-sub">Desenvolvedor Python & Django apaixonado por criar aplicações web robustas e APIs eficientes. Baseado em Niterói, RJ.</p>
+        {% endif %}
+        <div class="hero-btns">
+          <a href="{% url 'projetos' %}" class="btn btn-accent">Ver projetos <i class="bi bi-arrow-right ms-1"></i></a>
+          <a href="{% url 'contato' %}" class="btn btn-ghost">Fale comigo</a>
+          {% if perfil and perfil.github %}
+          <a href="{{ perfil.github }}" target="_blank" class="btn btn-ghost"><i class="bi bi-github me-1"></i> GitHub</a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-5 text-center d-none d-lg-block">
+        <div class="profile-wrap">
+          {% if perfil and perfil.foto %}
+          <img src="{{ perfil.foto.url }}" class="profile-img" alt="Gilberto Júnior">
+          {% else %}
+          <div class="profile-placeholder"><i class="bi bi-person-fill"></i></div>
+          {% endif %}
+          <span class="profile-badge">Available ✓</span>
+        </div>
+        <!-- Terminal fake -->
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:1.5rem;text-align:left;font-family:var(--mono);font-size:.75rem;">
+          <div style="color:var(--muted);margin-bottom:.5rem;"><span style="color:#ef4444;">●</span> <span style="color:#f59e0b;">●</span> <span style="color:#22c55e;">●</span></div>
+          <div style="color:var(--muted2);">$ python manage.py runserver</div>
+          <div style="color:var(--accent);">→ Server running on :8000</div>
+          <div style="color:var(--muted2);">$ git push origin main</div>
+          <div style="color:#22c55e;">→ Branch main updated ✓</div> <!---retirei um parentese antes do ponto e virgula-->
+          <div style="color:var(--muted2);">$ <span class="terminal-cursor">_</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding:2.5rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num">{{ projetos.count }}+</div>
+          <div class="stat-label">Projetos</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Anos estudando</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Tecnologias</div>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Vontade de aprender</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS EM DESTAQUE -->
+<section class="section">
+  <div class="container">
+    <div class="row mb-4 align-items-end">
+      <div class="col">
+        <div class="section-tag">// projetos</div>
+        <h2 class="section-title">Destaques</h2>
+        <p class="section-sub">Alguns dos projetos que desenvolvi para praticar e evoluir.</p>
+      </div>
+      <div class="col-auto">
+        <a href="{% url 'projetos' %}" class="btn btn-ghost btn-sm">Ver todos <i class="bi bi-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+    <div class="row g-4">
+      {% for p in projetos %}
+      <div class="col-md-6 col-lg-4">
+        <div class="proj-card">
+          {% if p.imagem %}
+          <img src="{{ p.imagem.url }}" class="proj-card-img" alt="{{ p.titulo }}">
+          {% else %}
+          <div class="proj-card-img-placeholder">
+            <i class="bi bi-code-slash" style="font-size:2.5rem;color:var(--border);"></i>
+          </div>
+          {% endif %}
+          <div class="proj-card-body">
+            <span class="proj-cat">{{ p.get_categoria_display }}</span>
+            <div class="proj-title">{{ p.titulo }}</div>
+            <p class="proj-desc">{{ p.descricao|truncatechars:100 }}</p>
+            <div class="proj-tech">
+              {% for t in p.tecnologias_lista %}
+              <span class="tech-pill">{{ t }}</span>
+              {% endfor %}
+            </div>
+            <div class="proj-links">
+              {% if p.url_github %}
+              <a href="{{ p.url_github }}" target="_blank" class="proj-link primary"><i class="bi bi-github"></i> GitHub</a>
+              {% endif %}
+              {% if p.url_demo %}
+              <a href="{{ p.url_demo }}" target="_blank" class="proj-link"><i class="bi bi-box-arrow-up-right"></i> Demo</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5" style="color:var(--muted);">
+        <i class="bi bi-folder2-open" style="font-size:2.5rem;"></i>
+        <p class="mt-2">Nenhum projeto cadastrado ainda. <a href="/admin" style="color:var(--accent);">Adicionar no admin →</a></p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- HABILIDADES -->
+{% if habilidades.linguagem or habilidades.framework %}
+<section class="section skills-section" style="background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-tag">// habilidades</div>
+    <h2 class="section-title mb-4">Stack técnica</h2>
+    <div class="row g-4">
+      {% if habilidades.linguagem %}
+      <div class="col-md-6">
+        <div style="font-size:.75rem;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.75rem;">Linguagens</div>
+        <div class="d-flex flex-column gap-2">
+          {% for h in habilidades.linguagem %}
+          <div class="skill-card">
+            <div class="skill-name"><i class="bi {{ h.icone }}"></i> {{ h.nome }} <span class="skill-pct ms-auto">{{ h.nivel }}%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:0" data-pct="{{ h.nivel }}"></div></div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+      {% if habilidades.framework or habilidades.banco %}
+      <div class="col-md-6">
+        {% if habilidades.framework %}
+        <div style="font-size:.75rem;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.75rem;">Frameworks & Libs</div>
+        <div class="d-flex flex-column gap-2 mb-3">
+          {% for h in habilidades.framework %}
+          <div class="skill-card">
+            <div class="skill-name"><i class="bi {{ h.icone }}"></i> {{ h.nome }} <span class="skill-pct ms-auto">{{ h.nivel }}%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:0" data-pct="{{ h.nivel }}"></div></div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if habilidades.banco %}
+        <div style="font-size:.75rem;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:.75rem;">Bancos de dados</div>
+        <div class="d-flex flex-column gap-2">
+          {% for h in habilidades.banco %}
+          <div class="skill-card">
+            <div class="skill-name"><i class="bi {{ h.icone }}"></i> {{ h.nome }} <span class="skill-pct ms-auto">{{ h.nivel }}%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="width:0" data-pct="{{ h.nivel }}"></div></div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="section text-center">
+  <div class="container" style="max-width:560px;">
+    <div class="section-tag">// contato</div>
+    <h2 class="section-title">Vamos trabalhar juntos?</h2>
+    <p class="section-sub mx-auto mb-4">Estou aberto a oportunidades, freelas e projetos colaborativos. Me manda uma mensagem!</p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <a href="{% url 'contato' %}" class="btn btn-accent">Entrar em contato <i class="bi bi-arrow-right ms-1"></i></a>
+      {% if perfil and perfil.linkedin %}
+      <a href="{{ perfil.linkedin }}" target="_blank" class="btn btn-ghost"><i class="bi bi-linkedin me-1"></i> LinkedIn</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<style>
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  .terminal-cursor { animation: blink 1s infinite; }
+</style>
+{% endblock %}

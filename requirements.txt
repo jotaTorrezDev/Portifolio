@@ -1,0 +1,4 @@
+django>=4.2
+pillow
+python-decouple>=3.8
+gunicorn>=21.0

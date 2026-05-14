@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Contato — Gilberto Júnior{% endblock %}
+{% block content %}
+
+<div style="padding-top:80px;"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="row gy-5">
+
+      <!-- INFO -->
+      <div class="col-lg-4">
+        <div class="section-tag">// contato</div>
+        <h1 class="section-title">Fale comigo</h1>
+        <p style="color:var(--muted2);font-size:.95rem;line-height:1.7;margin-bottom:2rem;">
+          Tem uma ideia, projeto ou oportunidade? Me manda uma mensagem — responderei o mais rápido possível!
+        </p>
+        <div class="d-flex flex-column gap-3">
+          {% if perfil %}
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-envelope"></i></div>
+            <div><div class="info-label">E-mail</div><div class="info-val"><a href="mailto:{{ perfil.email }}">{{ perfil.email }}</a></div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-telephone"></i></div>
+            <div><div class="info-label">Telefone</div><div class="info-val">{{ perfil.telefone }}</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-geo-alt"></i></div>
+            <div><div class="info-label">Localização</div><div class="info-val">{{ perfil.localizacao }}</div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-github"></i></div>
+            <div><div class="info-label">GitHub</div><div class="info-val"><a href="{{ perfil.github }}" target="_blank">jotaTorrezDev</a></div></div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="bi bi-linkedin"></i></div>
+            <div><div class="info-label">LinkedIn</div><div class="info-val"><a href="{{ perfil.linkedin }}" target="_blank">Gilberto Júnior</a></div></div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="col-lg-8">
+        {% for m in messages %}
+        <div class="alert alert-{{ m.tags }} mb-3" role="alert">
+          <i class="bi {% if 'success' in m.tags %}bi-check-circle{% else %}bi-exclamation-circle{% endif %} me-2"></i>{{ m }}
+        </div>
+        {% endfor %}
+
+        <div class="contact-form">
+          <form method="POST">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Nome</label>
+                <input type="text" name="nome" class="form-control" placeholder="Seu nome" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">E-mail</label>
+                <input type="email" name="email" class="form-control" placeholder="seu@email.com" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Assunto</label>
+                <input type="text" name="assunto" class="form-control" placeholder="Ex: Proposta de projeto" required>
+              </div>
+              <div class="col-12">
+                <label class="form-label">Mensagem</label>
+                <textarea name="mensagem" class="form-control" rows="6" placeholder="Descreva sua ideia ou proposta..." required></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-accent w-100">
+                  <i class="bi bi-send me-2"></i>Enviar mensagem
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}

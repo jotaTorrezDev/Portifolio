@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %}Projetos — Gilberto Júnior{% endblock %}
+{% block content %}
+
+<div style="padding-top:80px;"></div>
+
+<section class="section">
+  <div class="container">
+    <div class="section-tag">// projetos</div>
+    <h1 class="section-title">Meus projetos</h1>
+    <p class="section-sub mb-4">Tudo que desenvolvi para aprender, praticar e evoluir como desenvolvedor.</p>
+
+    <!-- FILTROS -->
+    <div class="d-flex gap-2 flex-wrap mb-4">
+      <a href="{% url 'projetos' %}" class="cat-btn {% if not cat_ativa %}active{% endif %}">Todos</a>
+      {% for val, label in cats %}
+      <a href="?cat={{ val }}" class="cat-btn {% if cat_ativa == val %}active{% endif %}">{{ label }}</a>
+      {% endfor %}
+    </div>
+
+    <!-- GRID -->
+    <div class="row g-4">
+      {% for p in projetos %}
+      <div class="col-md-6 col-lg-4">
+        <div class="proj-card">
+          {% if p.imagem %}
+          <img src="{{ p.imagem.url }}" class="proj-card-img" alt="{{ p.titulo }}">
+          {% else %}
+          <div class="proj-card-img-placeholder">
+            <i class="bi bi-code-slash" style="font-size:2.5rem;color:var(--border);"></i>
+          </div>
+          {% endif %}
+          <div class="proj-card-body">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="proj-cat">{{ p.get_categoria_display }}</span>
+              {% if p.destaque %}<span style="font-size:.65rem;font-family:var(--mono);color:var(--accent);">★ Destaque</span>{% endif %}
+            </div>
+            <div class="proj-title">{{ p.titulo }}</div>
+            <p class="proj-desc">{{ p.descricao }}</p>
+            <div class="proj-tech">
+              {% for t in p.tecnologias_lista %}
+              <span class="tech-pill">{{ t }}</span>
+              {% endfor %}
+            </div>
+            <div class="proj-links">
+              {% if p.url_github %}
+              <a href="{{ p.url_github }}" target="_blank" class="proj-link primary"><i class="bi bi-github"></i> GitHub</a>
+              {% endif %}
+              {% if p.url_demo %}
+              <a href="{{ p.url_demo }}" target="_blank" class="proj-link"><i class="bi bi-box-arrow-up-right"></i> Demo</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12 text-center py-5" style="color:var(--muted);">
+        <i class="bi bi-folder2-open" style="font-size:3rem;"></i>
+        <p class="mt-3">Nenhum projeto encontrado.<br>
+          <a href="/admin/core/projeto/add/" style="color:var(--accent);">Adicionar projeto no admin →</a>
+        </p>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}
