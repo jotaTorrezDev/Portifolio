@@ -24,8 +24,8 @@
         <div class="hero-btns">
           <a href="{% url 'projetos' %}" class="btn btn-accent">Ver projetos <i class="bi bi-arrow-right ms-1"></i></a>
           <a href="{% url 'contato' %}" class="btn btn-ghost">Fale comigo</a>
+          <!-- ALTERAÇÃO: botão GitHub foi removido temporariamente; revisar antes do deploy -->
           {% if perfil and perfil.github %}
-          <a href="{{ perfil.github }}" target="_blank" class="btn btn-ghost"><i class="bi bi-github me-1"></i> GitHub</a>
           {% endif %}
         </div>
       </div>
