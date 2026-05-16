@@ -1,2 +1,2 @@
 web: sh -c "DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production python manage.py collectstatic --noinput && DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production gunicorn portfolio_pkg.wsgi --bind 0.0.0.0:$PORT --log-file -"
-release: python manage.py migrate && python manage.py collectstatic --noinput
+release: sh -c "DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production python manage.py migrate && DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production python manage.py collectstatic --noinput"
