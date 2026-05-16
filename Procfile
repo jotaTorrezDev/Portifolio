@@ -1,2 +1,2 @@
-web: DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production gunicorn portfolio_pkg.wsgi --log-file -
+web: DJANGO_SETTINGS_MODULE=portfolio_pkg.settings_production gunicorn portfolio_pkg.wsgi --bind 0.0.0.0:$PORT --log-file -
 release: python manage.py migrate
