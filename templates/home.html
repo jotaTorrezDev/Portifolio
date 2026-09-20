@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Gilberto Júnior — Dev Python & Django{% endblock %}
 
 {% block content %}
@@ -32,7 +33,7 @@
       <div class="col-lg-5 text-center d-none d-lg-block">
         <div class="profile-wrap">
           {% if perfil and perfil.foto %}
-          <img src="{{ perfil.foto.url }}" class="profile-img" alt="Gilberto Júnior">
+          <img src="{% static 'perfil.png' %}" class="profile-img" alt="Gilberto Júnior">
           {% else %}
           <div class="profile-placeholder"><i class="bi bi-person-fill"></i></div>
           {% endif %}
@@ -131,7 +132,7 @@
       {% empty %}
       <div class="col-12 text-center py-5" style="color:var(--muted);">
         <i class="bi bi-folder2-open" style="font-size:2.5rem;"></i>
-        <p class="mt-2">Nenhum projeto cadastrado ainda. <a href="/admin" style="color:var(--accent);">Adicionar no admin →</a></p>
+        <p class="mt-2">Nenhum projeto cadastrado ainda.</p>
       </div>
       {% endfor %}
     </div>
