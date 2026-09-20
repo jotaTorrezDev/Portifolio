@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Sobre — Gilberto Júnior{% endblock %}
 {% block content %}
 
@@ -10,7 +11,7 @@
       <div class="col-lg-4 text-center">
         <div class="profile-wrap d-inline-block">
           {% if perfil and perfil.foto %}
-          <img src="{{ perfil.foto.url }}" class="profile-img" alt="Gilberto Júnior">
+          <img src="{% static 'perfil.png' %}" class="profile-img" alt="Gilberto Júnior">
           {% else %}
           <div class="profile-placeholder"><i class="bi bi-person-fill"></i></div>
           {% endif %}
