@@ -4,9 +4,16 @@ django.setup()
 from django.contrib.auth.models import User
 from core.models import SobreMim, Projeto, Habilidade
 
-if not User.objects.filter(username='admin').exists():
-    User.objects.create_superuser('admin','juniortorreszj@gmail.com','admin123')
-    print("✓ Admin: admin / admin123")
+ADMIN_USER = os.environ.get('ADMIN_USER')
+ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD')
+ADMIN_EMAIL = os.environ.get('ADMIN_EMAIL', '')
+
+if ADMIN_USER and ADMIN_PASSWORD:
+    if not User.objects.filter(username=ADMIN_USER).exists():
+        User.objects.create_superuser(ADMIN_USER, ADMIN_EMAIL, ADMIN_PASSWORD)
+        print("✓ Superusuário criado")
+else:
+    print("⚠ ADMIN_USER e ADMIN_PASSWORD não definidos: nenhum usuário criado")
 
 if not SobreMim.objects.exists():
     SobreMim.objects.create(
