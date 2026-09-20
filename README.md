@@ -51,7 +51,7 @@ bash setup.sh
 ### 3️⃣ Acesse
 - 🌐 **Site**: http://localhost:8000
 - 🔐 **Admin**: http://localhost:8000/admin
-- Login: `admin` / `admin123`
+- Login: "para uso local, defina ADMIN_USER e ADMIN_PASSWORD".
 
 ---
 
