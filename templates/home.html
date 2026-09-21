@@ -5,50 +5,49 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero hx">
   <div class="hero-grid"></div>
   <div class="hero-glow"></div>
+
   <div class="container position-relative">
     <div class="row align-items-center gy-5">
-      <div class="col-lg-7">
-        <div class="hero-tag"><i class="bi bi-terminal me-1"></i> Python & Django Developer</div>
-        <h1>
-          Olá, sou<br>
-          <span class="accent">Gilberto</span><br>
-          Júnior
-        </h1>
-        {% if perfil %}
-        <p class="hero-sub">{{ perfil.bio_curta }}</p>
-        {% else %}
-        <p class="hero-sub">Desenvolvedor Python & Django apaixonado por criar aplicações web robustas e APIs eficientes. Baseado em Niterói, RJ.</p>
-        {% endif %}
-        <div class="hero-btns">
-          <a href="{% url 'projetos' %}" class="btn btn-accent">Ver projetos <i class="bi bi-arrow-right ms-1"></i></a>
+
+      <div class="col-lg-6">
+        <div class="hx-kicker">// olá, eu sou Gilberto Júnior</div>
+        <h1 class="hx-title"><span class="accent">Backend</span><br>Developer</h1>
+        <p class="hx-role">Python &amp; Django · REST APIs</p>
+        <p class="hx-sub">Desenvolvo aplicações web e APIs com Python e Django. Também construo as interfaces com HTML, CSS, JavaScript e Bootstrap. Baseado em Niterói, RJ.</p>
+        <div class="hx-actions">
+          <a href="{% url 'projetos' %}" class="hx-pill">
+            <span>Ver projetos</span>
+            <span class="hx-pill-icon"><i class="bi bi-arrow-up-right"></i></span>
+          </a>
           <a href="{% url 'contato' %}" class="btn btn-ghost">Fale comigo</a>
-          <!-- ALTERAÇÃO: botão GitHub foi removido temporariamente; revisar antes do deploy -->
-          {% if perfil and perfil.github %}
-          {% endif %}
         </div>
       </div>
-      <div class="col-lg-5 text-center d-none d-lg-block">
-        <div class="profile-wrap">
-          {% if perfil and perfil.foto %}
-          <img src="{% static 'perfil.png' %}" class="profile-img" alt="Gilberto Júnior">
-          {% else %}
-          <div class="profile-placeholder"><i class="bi bi-person-fill"></i></div>
-          {% endif %}
-          <span class="profile-badge">Available ✓</span>
-        </div>
-        <!-- Terminal fake -->
-        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:1rem;margin-top:1.5rem;text-align:left;font-family:var(--mono);font-size:.75rem;">
-          <div style="color:var(--muted);margin-bottom:.5rem;"><span style="color:#ef4444;">●</span> <span style="color:#f59e0b;">●</span> <span style="color:#22c55e;">●</span></div>
-          <div style="color:var(--muted2);">$ python manage.py runserver</div>
-          <div style="color:var(--accent);">→ Server running on :8000</div>
-          <div style="color:var(--muted2);">$ git push origin main</div>
-          <div style="color:#22c55e;">→ Branch main updated ✓</div> <!---retirei um parentese antes do ponto e virgula-->
-          <div style="color:var(--muted2);">$ <span class="terminal-cursor">_</span></div>
+
+      <div class="col-lg-6">
+        <div class="hx-photo">
+          <img src="{% static 'perfil.png' %}" alt="Gilberto Júnior"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='grid';">
+          <div class="hx-photo-fallback"><i class="bi bi-person-fill"></i></div>
+
+          <div class="hx-social">
+            {% if perfil and perfil.linkedin %}
+            <a href="{{ perfil.linkedin }}" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+            {% endif %}
+            {% if perfil and perfil.github %}
+            <a href="{{ perfil.github }}" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+            {% endif %}
+          </div>
+
+          <div class="hx-open">
+            <strong><span class="hx-dot"></span>Open to work</strong>
+            <small>Niterói, RJ</small>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
