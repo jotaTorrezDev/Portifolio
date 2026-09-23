@@ -28,7 +28,7 @@
           <img src="{{ p.imagem.url }}" class="proj-card-img" alt="{{ p.titulo }}">
         {% else %}
         {% with nome=p.titulo|slugify %}
-        <img src="{% static 'projetos/catalogo.png'|add:nome|add:'.png' %}" class="proj-card-img" alt="{{ p.titulo }}"
+        <img src="{% static 'projetos/'|add:nome|add:'.png' %}" class="proj-card-img" alt="{{ p.titulo }}"
          onerror="this.onerror=null;this.replaceWith(Object.assign(document.createElement('div'),{className:'proj-card-img-placeholder',innerHTML:'<i class=\'bi bi-code-slash\' style=\'font-size:2.5rem;color:var(--border);\'></i>'}));">
         {% endwith %}
         {% endif %}
