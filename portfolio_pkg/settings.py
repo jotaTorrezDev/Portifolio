@@ -1,7 +1,5 @@
 """
-"""
 Configurações de produção do projeto Portfolio.
-"""
 """
 
 import os
