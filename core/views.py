@@ -42,22 +42,23 @@ def contato(request):
             messages.error(request,'Preencha todos os campos.')
         else:
             Contato.objects.create(nome=nome,email=email,assunto=assunto,mensagem=mensagem)
-        try:
-            email_msg = EmailMessage(
-                subject=f'[Contato do portfólio] {assunto}',
-                body=(
-                    f'Nome: {nome}\n'
-                    f'Email: {email}\n\n'
-                    f'Mensagem:\n{mensagem}'
-                ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                to=[settings.CONTACT_EMAIL],
-                reply_to=[email],
-            )
-            email_msg.send(fail_silently=False)
-        except Exception as e:
-            print(f"ERRO AO ENVIAR EMAIL: {e}")
-            messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
-        else:
-            messages.success(request,'Mensagem enviada! Responderei em breve.')
-            return redirect('contato')
+            try:
+                email_msg = EmailMessage(
+                    subject=f'[Contato do portfólio] {assunto}',
+                    body=(
+                        f'Nome: {nome}\n'
+                        f'Email: {email}\n\n'
+                        f'Mensagem:\n{mensagem}'
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    to=[settings.CONTACT_EMAIL],
+                    reply_to=[email],
+                )
+                email_msg.send(fail_silently=False)
+            except Exception as e:
+                print(f"ERRO AO ENVIAR EMAIL: {e}")
+                messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
+            else:
+                messages.success(request,'Mensagem enviada! Responderei em breve.')
+                return redirect('contato')
+    return render (request, 'contato.html', {'perfil' perfil})
