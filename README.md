@@ -1,6 +1,6 @@
 # 🎯 Portfólio - Gilberto Júnior
 
-Um site de portfólio pessoal completo, desenvolvido com **Django** e **SQLite**, para showcasear seus projetos, habilidades e receber mensagens de contato.
+Um site de portfólio pessoal completo, desenvolvido com **Django** e **SQLite**, para apresentar projetos, habilidades e receber mensagens de contato.
 
 ---
 
@@ -15,7 +15,7 @@ Um site de portfólio pessoal completo, desenvolvido com **Django** e **SQLite**
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Início Rápido
 
 ### 1️⃣ Pré-requisitos
 - Python 3.8+
@@ -51,14 +51,14 @@ bash setup.sh
 ### 3️⃣ Acesse
 - 🌐 **Site**: http://localhost:8000
 - 🔐 **Admin**: http://localhost:8000/admin
-- Login: "para uso local, defina ADMIN_USER e ADMIN_PASSWORD".
+- A conta administrativa é criada pelo `seed.py` quando `ADMIN_USER` e `ADMIN_PASSWORD` estão definidos.
 
 ---
 
 ## 📁 Estrutura do Projeto
 
 ```
-portfolio_gilberto/proj/
+.
 │
 ├── core/                    # App principal do Django
 │   ├── models.py           # Modelos: Projeto, Habilidade, Contato, SobreMim
@@ -81,12 +81,16 @@ portfolio_gilberto/proj/
 │
 ├── static/                  # Arquivos estáticos
 │   ├── css/                # Estilos CSS
-│   └── js/                 # Scripts JavaScript
+│   ├── js/                 # Scripts JavaScript
+│   └── projetos/           # Imagens dos projetos
 │
-├── db.sqlite3              # Banco de dados (será criado)
+├── .env.example            # Exemplo de variáveis de ambiente
+├── DEPLOY.md               # Instruções de deploy
 ├── manage.py               # Gerenciador Django
+├── Procfile                # Comando de inicialização para deploy
 ├── requirements.txt        # Dependências Python
 ├── seed.py                 # Script para popular dados iniciais
+├── setup.sh                # Script de configuração
 └── README.md               # Este arquivo
 ```
 
@@ -125,6 +129,11 @@ Vá em **"Habilidades"** e configure:
 ### Mensagens de Contato
 
 Em **"Mensagens"**, visualize contatos recebidos e marque como lido.
+
+O formulário também envia cada mensagem por email. Configure no `.env` o SMTP e o
+destinatário `CONTACT_EMAIL` (no Gmail, use uma senha de app em
+`EMAIL_HOST_PASSWORD`). O email do visitante é configurado como endereço de
+resposta.
 
 ---
 
@@ -198,4 +207,4 @@ Projeto pessoal — Use livremente! 🚀
 
 ---
 
-**Desenvolvido com ❤️ usando Django**
+**Desenvolvido com Python usando Django**

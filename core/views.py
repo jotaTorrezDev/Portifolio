@@ -1,5 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.conf import settings
+from django.core.mail import send_mail
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 from .models import Projeto, Habilidade, Contato, SobreMim
 
 def get_perfil():
@@ -27,10 +31,33 @@ def contato(request):
     if request.method == 'POST':
         nome=request.POST.get('nome','').strip(); email=request.POST.get('email','').strip()
         assunto=request.POST.get('assunto','').strip(); mensagem=request.POST.get('mensagem','').strip()
-        if not all([nome,email,assunto,mensagem]):
+        try:
+            validate_email(email)
+        except ValidationError:
+            email_valido = False
+        else:
+            email_valido = True
+
+        if not all([nome,email,assunto,mensagem]) or not email_valido:
             messages.error(request,'Preencha todos os campos.')
         else:
             Contato.objects.create(nome=nome,email=email,assunto=assunto,mensagem=mensagem)
-            messages.success(request,'Mensagem enviada! Responderei em breve.')
-            return redirect('contato')
+            try:
+                send_mail(
+                    subject=f'[Contato do portfólio] {assunto}',
+                    message=(
+                        f'Nome: {nome}\n'
+                        f'Email: {email}\n\n'
+                        f'Mensagem:\n{mensagem}'
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.CONTACT_EMAIL],
+                    reply_to=[email],
+                    fail_silently=False,
+                )
+            except Exception:
+                messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
+            else:
+                messages.success(request,'Mensagem enviada! Responderei em breve.')
+                return redirect('contato')
     return render(request, 'contato.html', {'perfil':perfil})
