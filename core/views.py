@@ -42,7 +42,7 @@ def contato(request):
             messages.error(request,'Preencha todos os campos.')
         else:
             Contato.objects.create(nome=nome,email=email,assunto=assunto,mensagem=mensagem)
-                   try:
+        try:
             email_msg = EmailMessage(
                 subject=f'[Contato do portfólio] {assunto}',
                 body=(
