@@ -55,7 +55,8 @@ def contato(request):
                     reply_to=[email],
                     fail_silently=False,
                 )
-            except Exception:
+            except Exception as e:
+                print(f"ERROR AO ENVIAR EMAIL: {e}")
                 messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
             else:
                 messages.success(request,'Mensagem enviada! Responderei em breve.')
