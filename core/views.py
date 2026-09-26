@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .models import Projeto, Habilidade, Contato, SobreMim
@@ -43,18 +43,18 @@ def contato(request):
         else:
             Contato.objects.create(nome=nome,email=email,assunto=assunto,mensagem=mensagem)
             try:
-                send_mail(
+                email_msg = EmailMessage(
                     subject=f'[Contato do portfólio] {assunto}',
-                    message=(
+                    body=(
                         f'Nome: {nome}\n'
                         f'Email: {email}\n\n'
                         f'Mensagem:\n{mensagem}'
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.CONTACT_EMAIL],
+                    to=[settings.CONTACT_EMAIL],
                     reply_to=[email],
-                    fail_silently=False,
                 )
+                 email_msg.send(fail_silently=False)
             except Exception as e:
                 print(f"ERROR AO ENVIAR EMAIL: {e}")
                 messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
