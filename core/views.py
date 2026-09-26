@@ -26,7 +26,7 @@ def projetos(request):
     todos = Projeto.objects.filter(categoria=categoria) if categoria else Projeto.objects.all()
     return render(request, 'projetos.html', {'perfil':perfil,'projetos':todos,'cats':Projeto.CATEGORIAS,'cat_ativa':categoria})
 
-def contato(request):
+def Contato(request):
     perfil = get_perfil()
     if request.method == 'POST':
         nome=request.POST.get('nome','').strip(); email=request.POST.get('email','').strip()
