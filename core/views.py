@@ -51,7 +51,7 @@ def contato(request):
                         f'Mensagem:\n{mensagem}'
                     ),
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    to=[settings.CONTATO_EMAIL],
+                    to=[settings.CONTACT_EMAIL],
                     reply_to=[email],
                 )
                 email_msg.send(fail_silently=False)
