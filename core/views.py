@@ -61,3 +61,4 @@ def contato(request):
             else:
                 messages.success(request,'Mensagem enviada! Responderei em breve.')
                 return redirect('contato')
+        return render(request, 'contato.html', {'perfil': perfil})
