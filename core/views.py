@@ -59,5 +59,6 @@ def contato(request):
                 print(f"ERRO AO ENVIAR EMAIL: {e}")
                 messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
             else:
+                print(f"erro ao carregar pagina contato {e}")
                 messages.success(request,'Mensagem enviada! Responderei em breve.')
                 return redirect('contato')
