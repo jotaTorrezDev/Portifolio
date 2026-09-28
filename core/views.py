@@ -53,7 +53,7 @@ def contato(request):
                     from_email=settings.DEFAULT_FROM_EMAIL,
                     to=[settings.CONTACT_EMAIL],
                     reply_to=[email],
-                ),
+                )
                 email_msg.send(fail_silently=False)
             except Exception as e:
                 print(f"ERRO AO ENVIAR EMAIL: {e}")
