@@ -1,3 +1,5 @@
+import logging
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
@@ -5,6 +7,8 @@ from django.core.mail import EmailMessage
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from .models import Projeto, Habilidade, Contato, SobreMim
+
+logger = logging.getLogger(__name__)
 
 def get_perfil():
     return SobreMim.objects.filter(ativo=True).first()
@@ -55,8 +59,8 @@ def contato(request):
                     reply_to=[email],
                 )
                 email_msg.send(fail_silently=False)
-            except Exception as e:
-                print(f"ERRO AO ENVIAR EMAIL: {e}")
+            except Exception:
+                logger.exception('Erro ao enviar email de contato')
                 messages.error(request,'Não foi possível enviar a mensagem. Tente novamente mais tarde.')
             else:
                 messages.success(request,'Mensagem enviada! Responderei em breve.')
