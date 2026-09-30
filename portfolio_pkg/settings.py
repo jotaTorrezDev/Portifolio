@@ -59,7 +59,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'portfolio_pkg.wsgi.application'
 
-# 🗄️ BANCO DE DADOS - Ajuste conforme sua plataforma
+#  BANCO DE DADOS - Ajuste conforme sua plataforma
 import dj_database_url
 
 DATABASE_URL = config('DATABASE_URL', default='')
@@ -88,7 +88,7 @@ TIME_ZONE = 'America/Sao_Paulo'
 USE_I18N = True
 USE_TZ = True
 
-# 📁 ARQUIVOS ESTÁTICOS E MÍDIA
+#  ARQUIVOS ESTÁTICOS E MÍDIA
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static'] if (BASE_DIR / 'static').exists() else []
@@ -99,7 +99,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# 📧 Email de contato
+#  Email de contato
 EMAIL_BACKEND = config(
     'EMAIL_BACKEND',
     default='django.core.mail.backends.smtp.EmailBackend',
@@ -112,8 +112,9 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default=EMAIL_HOST_USER)
 CONTACT_EMAIL = config('CONTACT_EMAIL', default=EMAIL_HOST_USER)
+RESEND_API_KEY = config('RESEND_API_KEY', default='')
 
-# 🔒 CONFIGURAÇÕES DE SEGURANÇA (Produção)
+#  CONFIGURAÇÕES DE SEGURANÇA (Produção)
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
@@ -123,6 +124,6 @@ CSRF_COOKIE_SECURE = config('CSRF_COOKIE_SECURE', default=False, cast=bool)
 CSRF_COOKIE_HTTPONLY = True
 SESSION_COOKIE_HTTPONLY = True
 
-# ⏱️ Cache Sessions (Melhor performance)
+#  Cache Sessions (Melhor performance)
 SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 SESSION_CACHE_ALIAS = 'default'
