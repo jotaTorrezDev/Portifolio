@@ -28,7 +28,7 @@
           <img src="{{ p.imagem.url }}" class="proj-card-img" alt="{{ p.titulo }}">
         {% else %}
         {% with nome=p.titulo|slugify %}
-        <img src="{% static 'projetos/debt-tracker-card.png'|add:nome|add:'.png' %}"class="proj-card-img"alt="{{ p.titulo }}"> <!-- test add name. projetos/debt-tracker-card.png-->
+        <img src="{% static 'projetos/'|add:nome|add:'.png' %}"class="proj-card-img"alt="{{ p.titulo }}"> <!-- test add name. projetos/debt-tracker-card.png--> <!--quebrou tudo , deletei-->
         {% endwith %}
         {% endif %}
           <div class="proj-card-body">
